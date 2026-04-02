@@ -233,7 +233,7 @@ export function Globe({
           width: "100%",
           height: "100%",
           cursor: "grab",
-          opacity: 0,
+          opacity: 0,
           transition: "opacity 1.2s ease",
           borderRadius: "50%",
           touchAction: "none",
