@@ -29,7 +29,7 @@ export default function InvitePage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    const { data: pair } = await supabase
+    const { data: pair }: { data: any } = await supabase
       .from('accountability_pairs')
       .select('id, user_a')
       .eq('invite_token', token)
@@ -49,6 +49,7 @@ export default function InvitePage() {
 
     await supabase
       .from('accountability_pairs')
+      // @ts-ignore
       .update({ user_b: user.id, status: 'active' })
       .eq('id', pair.id)
 
