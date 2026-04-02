@@ -65,7 +65,8 @@ export async function updateStreak(
 
   await supabase
     .from('sleep_entries')
-    .update({ streak_count: newStreak, is_hit: hit } as any)
+    // @ts-ignore
+    .update({ streak_count: newStreak, is_hit: hit })
     .eq('id', entryId)
 
   return newStreak
