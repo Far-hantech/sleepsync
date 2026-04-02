@@ -1,26 +1,211 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================================
+   SleepSync Design System
+   ============================================================ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Color tokens - Pierre-Louis Aesthetic */
+    --color-background: #0D0D0F;
+    --color-surface: #1B1B1F;
+    --color-border: #2B2B30;
+    --color-accent-primary: #2D5BE3;
+    --color-accent-warm: #F5BD02;
+    --color-accent-success: #4ECDC4;
+    --color-text-primary: #FFFFFF;
+    --color-text-muted: #A0A0A0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-background);
+    background-image: radial-gradient(color-mix(in srgb, var(--color-border) 80%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--color-text-primary);
+    font-family: var(--font-space-grotesk), var(--font-inter), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 999px;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 2px;
+    border-radius: 8px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme {
+  /* Override Tailwind colors with SleepSync tokens */
+  --color-background: #0D0D0F;
+  --color-surface: #1B1B1F;
+  --color-border: #2B2B30;
+  --color-accent-primary: #2D5BE3;
+  --color-accent-warm: #F5BD02;
+  --color-accent-success: #4ECDC4;
+  --color-text-primary: #FFFFFF;
+  --color-text-muted: #A0A0A0;
+
+  /* Font families */
+  --font-instrument-serif: var(--font-instrument-serif), 'Georgia', serif;
+  --font-inter: var(--font-space-grotesk), var(--font-inter), system-ui, sans-serif;
+  --font-space: var(--font-space-grotesk), var(--font-inter), system-ui, sans-serif;
+  --font-jetbrains-mono: var(--font-jetbrains-mono), 'Courier New', monospace;
+
+  /* Border radius */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-pill: 999px;
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-instrument-serif), 'Georgia', serif;
+  }
+  .font-mono {
+    font-family: var(--font-jetbrains-mono), 'Courier New', monospace;
+  }
+  .font-inter {
+    font-family: var(--font-inter), system-ui, sans-serif;
+  }
+
+  /* Glass card */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  /* Button base */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-button);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 200ms ease-out;
+    border: none;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--color-accent-primary);
+    color: white;
+  }
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--color-accent-primary) 85%, white);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+  }
+  .btn-ghost:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-text-muted);
+    background: color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  .btn-danger {
+    background: transparent;
+    color: #EF4444;
+    border: 1px solid #EF4444;
+  }
+  .btn-danger:hover {
+    background: color-mix(in srgb, #EF4444 15%, transparent);
+  }
+
+  /* Text utilities */
+  .text-primary { color: var(--color-text-primary); }
+  .text-muted { color: var(--color-text-muted); }
+  .text-accent { color: var(--color-accent-primary); }
+  .text-warm { color: var(--color-accent-warm); }
+  .text-success { color: var(--color-accent-success); }
+
+  /* Background utilities */
+  .bg-background { background: var(--color-background); }
+  .bg-surface { background: var(--color-surface); }
+  .border-default { border-color: var(--color-border); }
+
+  /* Input field */
+  .input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-button);
+    color: var(--color-text-primary);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-size: 0.9375rem;
+    transition: border-color 200ms ease-out;
+    outline: none;
+  }
+  .input:focus {
+    border-color: var(--color-accent-primary);
+  }
+  .input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  /* Pulse animation for danger zone */
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    30% { opacity: 0.85; transform: scaleY(0.97); }
+    60% { opacity: 0.92; transform: scaleY(1.02); }
+    80% { opacity: 0.88; transform: scaleY(0.98); }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.03); opacity: 0.9; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-pulse-ring { animation: pulse-ring 2s ease-in-out infinite; }
+  .animate-flicker { animation: flicker 3s ease-in-out infinite; }
+  .animate-breathe { animation: breathe 4s ease-in-out infinite; }
+  .animate-slide-up { animation: slide-up 300ms ease-out forwards; }
 }
