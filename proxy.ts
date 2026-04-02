@@ -5,7 +5,7 @@ const PROTECTED_ROUTES = ['/dashboard', '/wind-down', '/check-in', '/settings', 
 const AUTH_ROUTES = ['/login', '/auth']
 const ONBOARDING_ROUTE = '/onboarding'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // Disabled auth checks to let the app run as a local UI mockup
   return NextResponse.next()
 }
